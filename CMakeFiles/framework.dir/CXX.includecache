@@ -1,0 +1,514 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics.h
+iostream
+-
+iomanip
+-
+cmath
+-
+stdexcept
+-
+graphics_vertex_program.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_vertex_program.h
+graphics_rasterizer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_rasterizer.h
+graphics_fragment_program.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_fragment_program.h
+graphics_zbuffer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_zbuffer.h
+graphics_framebuffer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_framebuffer.h
+graphics_state.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_state.h
+graphics_render_pipeline.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_render_pipeline.h
+graphics_camera.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_camera.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_camera.h
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics/graphics.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_fragment_program.h
+graphics_state.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_state.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_framebuffer.h
+iostream
+-
+iomanip
+-
+stdexcept
+-
+cmath
+-
+graphics_state.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_state.h
+windows.h
+-
+OpenGL/gl.h
+-
+GL/gl.h
+-
+vector
+-
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_rasterizer.h
+stdexcept
+-
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_render_pipeline.h
+iostream
+-
+iomanip
+-
+stdexcept
+-
+cmath
+-
+graphics_vertex_program.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_vertex_program.h
+graphics_rasterizer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_rasterizer.h
+graphics_fragment_program.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_fragment_program.h
+graphics_zbuffer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_zbuffer.h
+graphics_framebuffer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_framebuffer.h
+graphics_state.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_state.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_state.h
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics/graphics.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_vertex_program.h
+graphics_state.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_state.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_zbuffer.h
+iostream
+-
+iomanip
+-
+stdexcept
+-
+vector
+-
+algorithm
+-
+graphics_state.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics_state.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/main.cpp
+windows.h
+-
+iostream
+-
+iomanip
+-
+stdexcept
+-
+cmath
+-
+sstream
+-
+OpenGL/gl.h
+-
+OpenGL/glu.h
+-
+GLUT/glut.h
+-
+GL/gl.h
+-
+GL/glu.h
+-
+GL/glut.h
+-
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/graphics/graphics.h
+solution/linear_interpolator.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/linear_interpolator.h
+solution/point_rasterizer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/point_rasterizer.h
+solution/line_rasterizer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/line_rasterizer.h
+solution/triangle_rasterizer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/triangle_rasterizer.h
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/math_types.h
+solution/camera.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/camera.h
+solution/vertex_program.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/vertex_program.h
+solution/fragment_program.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/fragment_program.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/transformations.h
+solution/boundingbox.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/boundingbox.h
+solution/readbezierpatches.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/readbezierpatches.h
+solution/kleinbottle.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/kleinbottle.h
+solution/phongsurface.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/phongsurface.h
+solution/icosahedron.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/icosahedron.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/boundingbox.h
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/math_types.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/camera.h
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/fragment_program.h
+iostream
+-
+iomanip
+-
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/icosahedron.h
+iostream
+-
+iomanip
+-
+stdexcept
+-
+vector
+-
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/math_types.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/kleinbottle.h
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/math_types.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/line_rasterizer.h
+iostream
+-
+iomanip
+-
+cmath
+-
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+linear_interpolator.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/linear_interpolator.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/linear_interpolator.h
+iostream
+-
+iomanip
+-
+cmath
+-
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/math_types.h
+solution/interpolator.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/interpolator.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/math_types.h
+matrix/matrix.h
+-
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/phongsurface.h
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/math_types.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/point_rasterizer.h
+iostream
+-
+iomanip
+-
+cmath
+-
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/readbezierpatches.h
+fstream
+-
+vector
+-
+cstdio
+-
+cstring
+-
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/transformations.h
+iostream
+-
+iomanip
+-
+cmath
+-
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/math_types.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/triangle_rasterizer.h
+iostream
+-
+iomanip
+-
+stdexcept
+-
+cmath
+-
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+solution/edge_rasterizer.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/edge_rasterizer.h
+solution/linear_interpolator.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/linear_interpolator.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/vertex_program.h
+graphics/graphics.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+graphics/graphics_state.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics_state.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
+
+src/graphics/graphics_state.h
+graphics/graphics.h
+src/graphics/graphics/graphics.h
+solution/transformations.h
+src/graphics/solution/transformations.h
+
+src/matrix/columnvector.C
+stdexcept
+-
+cstdarg
+-
+sstream
+-
+string
+-
+typeinfo
+-
+cctype
+-
+matrix/trace.h
+-
+matrix/columnvector.h
+-
+
+src/matrix/columnvector.h
+iostream
+-
+iomanip
+-
+matrix/vector.h
+-
+matrix/rowvector.h
+-
+matrix/columnvector.C
+-
+
+src/matrix/matrix.C
+stdexcept
+-
+cstdarg
+-
+iostream
+-
+iomanip
+-
+fstream
+-
+sstream
+-
+string
+-
+typeinfo
+-
+cctype
+-
+NEWMAT/newmat.h
+-
+NEWMAT/newmatio.h
+-
+matrix/trace.h
+-
+matrix/matrix.h
+-
+matrix/simplearray.h
+-
+
+src/matrix/matrix.h
+iostream
+-
+iomanip
+-
+limits
+-
+matrix/real.h
+-
+matrix/rowvector.h
+-
+matrix/columnvector.h
+-
+matrix/matrix.C
+-
+
+src/matrix/real.h
+cctype
+-
+matrix/trace.h
+-
+
+src/matrix/rowvector.C
+stdexcept
+-
+cstdarg
+-
+sstream
+-
+string
+-
+typeinfo
+-
+cctype
+-
+matrix/trace.h
+-
+matrix/rowvector.h
+-
+
+src/matrix/rowvector.h
+iostream
+-
+iomanip
+-
+matrix/vector.h
+-
+matrix/columnvector.h
+-
+matrix/rowvector.C
+-
+
+src/matrix/trace.h
+iostream
+-
+iomanip
+-
+string
+-
+
+src/matrix/typename.C
+cstdlib
+-
+typeinfo
+-
+stdexcept
+-
+fstream
+-
+matrix/typename.h
+-
+
+src/matrix/typename.h
+iostream
+-
+iomanip
+-
+string
+-
+matrix/typename.C
+-
+
+src/matrix/vector.C
+new
+-
+stdexcept
+-
+cstdarg
+-
+sstream
+-
+fstream
+-
+string
+-
+typeinfo
+-
+cctype
+-
+cmath
+-
+matrix/trace.h
+-
+matrix/typename.h
+-
+matrix/vector.h
+-
+
+src/matrix/vector.h
+iostream
+-
+iomanip
+-
+cctype
+-
+matrix/real.h
+-
+matrix/vector.C
+-
+
+src/solution/edge_rasterizer.h
+iostream
+-
+iomanip
+-
+cmath
+-
+graphics/graphics.h
+src/solution/graphics/graphics.h
+solution/linear_interpolator.h
+src/solution/solution/linear_interpolator.h
+
+src/solution/interpolator.h
+iostream
+-
+iomanip
+-
+cmath
+-
+graphics/graphics.h
+src/solution/graphics/graphics.h
+solution/math_types.h
+src/solution/solution/math_types.h
+
