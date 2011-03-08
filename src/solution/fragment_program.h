@@ -62,11 +62,42 @@ template<typename math_types>
 		 vector3_type const& in_color,
 		 vector3_type&       out_color)
 	{
-	    // >> TODO ADD YOUR OWN MAGIC HERE <<
+		if (state.light_position() == vector3_type(0, 0, 0)) {
+			out_color = in_color;
+			return;
+		}
 
-	    // Implement the Phong reflection model using the values saved in state
+		vector3_type normal;
 
-	    out_color = in_color;
+		if (Norm(in_normal) == 0) {
+			normal = vector3_type(0, 0, 1);
+		} else {
+			normal = in_normal / Norm(in_normal);
+		}
+
+		vector3_type A = state.ambient_intensity() * state.ambient_color() * vector3_type(0.5, 0.5, 0.5);
+
+		vector3_type L = state.light_position() - in_position;
+        L = L / Norm(L);
+		vector3_type D = state.diffuse_color() * state.diffuse_intensity() * Dot(normal, L);
+
+		vector3_type R = (normal * 2) * Dot(normal, L) - L;
+		vector3_type V = state.eye_position() - in_position;
+		if (Norm(V) == 0){}
+		V = V / Norm(V);
+
+		vector3_type S = state.specular_intensity() * state.specular_color() * pow(Dot(R, V), 20);
+
+		vector3_type light = A + D + S;
+
+		if(light[1] > 1)
+			light[1]=0;
+		if(light[2] > 1)
+			light[2]=0;
+		if(light[3] > 1)
+			light[3]=0;
+
+	    out_color = vector3_type(in_color[1] * light[1], in_color[2] * light[2], in_color[3] * light[3]);
 	}
 
 

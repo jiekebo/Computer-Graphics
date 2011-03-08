@@ -94,7 +94,8 @@ namespace graphics {
 		this->v_start = Vstart;
 		this->v_stop = Vstop;
 		this->v_current = this->v_start;
-		this->Delta_v = (this->v_stop - this->v_start) / std::abs(this->t_stop - this->t_start) * this->Delta_t;
+		if(t_start != t_stop)
+			this->Delta_v = (this->v_stop - this->v_start) / std::abs(this->t_stop - this->t_start);
 
 	    this->valid = true;
 
