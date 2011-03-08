@@ -43,7 +43,7 @@ namespace graphics {
 
 	LinearInterpolator(LinearInterpolator const& new_linearinterpolator)
 	    : Interpolator<math_types, value_type>(new_linearinterpolator)
-	      
+
 	{
 	    this->t_start   = new_linearinterpolator.t_start;
 	    this->t_stop    = new_linearinterpolator.t_stop;
@@ -98,7 +98,6 @@ namespace graphics {
 			this->Delta_v = (this->v_stop - this->v_start) / std::abs(this->t_stop - this->t_start);
 
 	    this->valid = true;
-
 	}
 
 
@@ -169,7 +168,7 @@ namespace graphics {
 		this->v_current += this->Delta_v;
 		this->t_current += this->Delta_t;
 	}
-	
+
 /*******************************************************************\
 *                                                                   *
 *     o p e r a t o r = ( L i n e a r I n t e r p o l a t o r )     *
@@ -186,7 +185,7 @@ namespace graphics {
 		this->t_stop    = newlinearinterpolator.t_stop;
 		this->t_current = newlinearinterpolator.t_current;
 		this->Delta_t   = newlinearinterpolator.Delta_t;
-		
+
 		this->v_start   = newlinearinterpolator.v_start;
 		this->v_stop    = newlinearinterpolator.v_stop;
 		this->v_current = newlinearinterpolator.v_current;
