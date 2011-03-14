@@ -62,16 +62,24 @@ template<typename math_types>
 		 vector3_type const& in_color,
 		 vector3_type&       out_color)
 	{
+		vector3_type N;
+
+		if (Norm(in_normal) <= 0) {
+			N = vector3_type(0,0,0);
+		} else {
+			N = in_normal / Norm(in_normal);
+		}
+
 		vector3_type L = state.light_position() - in_position;
-        L = L / Norm(L);
-
-		vector3_type R = (in_normal * 2) * Dot(in_normal, L) - L;
+        L /= Norm(L);
+		vector3_type R = (N * 2) * Dot(N, L) - L;
+		R /= Norm(R);
 		vector3_type V = state.eye_position() - in_position;
-		V = V / Norm(V);
+		V /= Norm(V);
 
-		vector3_type A = state.ambient_color() * state.ambient_intensity() * vector3_type(0.5, 0.5, 0.5);
-		vector3_type D = state.diffuse_color() * state.diffuse_intensity() * Dot(in_normal, L);
-		vector3_type S = state.specular_color() * state.specular_intensity() * pow(Dot(R, V), 20);
+		vector3_type A = state.ambient_intensity() * state.ambient_color() * 0.5;
+		vector3_type D = state.diffuse_intensity() * state.diffuse_color() * Dot(N, L);
+		vector3_type S = state.specular_intensity() * state.specular_color() * pow(Dot(R, V), state.fall_off());
 
 		vector3_type light = A + D + S;
 

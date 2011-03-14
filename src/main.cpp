@@ -1062,7 +1062,7 @@ void DrawPhongTriangles()
     MyMathTypes::vector3_type v_2( 84.192943, -13.784394, -50.214926);
     MyMathTypes::vector3_type v_3(-16.236910,  83.754546, -50.214926);
     MyMathTypes::vector3_type normal = Cross(v_2 - v_1, v_3 - v_1);
-                              normal /= Norm(normal);      
+                              normal /= Norm(normal);
 
     // Light Sources
     MyMathTypes::vector3_type I_a(0.5, 0.5, 0.5);
