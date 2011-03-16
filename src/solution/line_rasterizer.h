@@ -71,7 +71,7 @@ namespace graphics {
 *                                                                   *
 \*******************************************************************/
 
-	MyLineRasterizer() : zero_normal(0, 0, 0), valid(false), Debug(false)
+	MyLineRasterizer() : zero_normal(0, 0, 0), valid(false), Debug(false) //,
 	{}
 
 
@@ -146,7 +146,6 @@ namespace graphics {
 
 		// Initialize the color_interpolator
 		this->color_interpolator.init(this->x_start, this->x_stop, this->color_start, this->color_stop);
-
 		// Set up a pointer for the inner-loop for an x-donmiant line
 		// This is a pointer to a private member function!
 		// Thererore it looks very strange, but this is how to do it!
@@ -310,9 +309,9 @@ namespace graphics {
 	    //     while (rasterizer->more_fragments()) {
 	    //         int x = rasterize->x();
 	    //         int y = rasterizer->y();
-	    //         MyMathTypes::real_type depth         = rasterizer->depth();
-	    //         MyMathTypes::vector3_type position   = rasterizer->position();
-	    //         MyMathTypes::vector3_type color      = rasterizer->color();
+	    //         MyMathTypes::real_type depth = rasterizer->depth();
+	    //         MyMathTypes::vector3_type    = rasterizer->position();
+	    //         MyMathTypes::vector3_type    = rasterizer->color();
 	    //             ...
 	    //             use the values ...
 	    //             ...
@@ -336,6 +335,7 @@ namespace graphics {
 	    (this->*innerloop)();
 
 	    this->depth_interpolator.next_value();
+
 	    this->color_interpolator.next_value();
      	}
 
@@ -442,7 +442,7 @@ namespace graphics {
 *                                                                   *
 \*******************************************************************/
 
-	// This looks strange, but it is the definition of a pointer to a
+	// This looks strange, byt it is the definition of a pointer to a
 	// private member function! That is how it is done!
 	void         (MyLineRasterizer::*innerloop)();
 

@@ -192,18 +192,18 @@ namespace graphics {
 	    //	      << this->x_current << ", " << this->y_current << ", "
 	    //	      << ")" << std::endl;
 
-	  //	    if (!this->valid) {
-	  //           throw std::runtime_error("MyEdgeRasterizer::depth(): Invalid State/Not Initialized");
-	  //            }
+	    if (!this->valid) {
+		throw std::runtime_error("MyEdgeRasterizer::depth(): Invalid State/Not Initialized");
+            }
 
 	    //return this->z_current;
 
-	  //	    if (!this->depth_interpolator.more_values()) {
+	    if (!this->depth_interpolator.more_values()) {
 		//std::cout << "MyEdgeRasterizer::depth(): more_values() == false" << std::endl;
 		//std::cout << "(x_current, y_current) = ("
 		//	  << this->x_current << ", " << this->y_current << ")" << std::endl;
-	      //		throw std::runtime_error("MyEdgeRasterizer::depth(): Invalid depth_interpolator");
-	  //	    }
+		throw std::runtime_error("MyEdgeRasterizer::depth(): Invalid depth_interpolator");
+	    }
 	    return this->depth_interpolator.value();
 	}
 
@@ -216,15 +216,15 @@ namespace graphics {
 
 	vector3_type position() const
         {
-	  //            if (!this->valid) {
-	  //                throw std::runtime_error("MyEdgeRasterizer::position():Invalid State/Not Initialized");
-	  //            }
+            if (!this->valid) {
+                throw std::runtime_error("MyEdgeRasterizer::position():Invalid State/Not Initialized");
+            }
 
             //return vector3_type(this->x(), this->y(), this->depth());
 
-	  //	    if (!this->worldpoint_interpolator.more_values()) {
-	  //		throw std::runtime_error("MyEdgeRasterizer::position(): Invalid worldpoint_interpolator");
-	  //	    }
+	    if (!this->worldpoint_interpolator.more_values()) {
+		throw std::runtime_error("MyEdgeRasterizer::position(): Invalid worldpoint_interpolator");
+	    }
 	    return this->worldpoint_interpolator.value();
         }
 
@@ -237,15 +237,15 @@ namespace graphics {
 
 	vector3_type normal() const
         {
-	  //            if (!this->valid) {
-	  //                throw std::runtime_error("MyEdgeRasterizer::normal():Invalid State/Not Initialized");
-	  //            }
+            if (!this->valid) {
+                throw std::runtime_error("MyEdgeRasterizer::normal():Invalid State/Not Initialized");
+            }
 
             //return this->Ncurrent;
 
-	  //	    if (!this->normal_interpolator.more_values()) {
-	  //		throw std::runtime_error("MyEdgeRasterizer::normal(): Invalid normal_interpolator");
-	  //	    }
+	    if (!this->normal_interpolator.more_values()) {
+		throw std::runtime_error("MyEdgeRasterizer::normal(): Invalid normal_interpolator");
+	    }
 	    return this->normal_interpolator.value();
         }
 
@@ -258,15 +258,15 @@ namespace graphics {
 
 	vector3_type color() const
         {
-	  //            if (!this->valid) {
-	  //                throw std::runtime_error("MyEdgeRasterizer::color():Invalid State/Not Initialized");
-	  //            }
+            if (!this->valid) {
+                throw std::runtime_error("MyEdgeRasterizer::color():Invalid State/Not Initialized");
+            }
 
             //return this->color_current;
 
-	  //	    if (!this->color_interpolator.more_values()) {
-	  //		throw std::runtime_error("MyEdgeRasterizer::color(): Invalid color_interpolator");
-	  //	    }
+	    if (!this->color_interpolator.more_values()) {
+		throw std::runtime_error("MyEdgeRasterizer::color(): Invalid color_interpolator");
+	    }
 	    return this->color_interpolator.value();
         }
 

@@ -62,30 +62,111 @@ template<typename math_types>
 		 vector3_type const& in_color,
 		 vector3_type&       out_color)
 	{
-		vector3_type N;
+	    // >> TODO ADD YOUR OWN MAGIC HERE <<
 
-		if (Norm(in_normal) <= 0) {
-			N = vector3_type(0,0,1);
-		} else {
-			N = in_normal / Norm(in_normal);
-		}
+	    //std::cout << "fragment: [" << in_position << "]" << std::endl;
 
-		vector3_type L = state.light_position() - in_position;
-        L /= Norm(L);
-		vector3_type R = (N * 2) * Dot(N, L) - L;
-		R /= Norm(R);
-		vector3_type V = state.eye_position() - in_position;
+	    //out_color = in_color;
+
+	    // Compute the needed vectors: N, L, R, V - and the dot products
+	    vector3_type N = in_normal;
+	    if (!Zero(N))
+		N /= Norm(N);
+	    else {
+		std::cout << "MyPhongFragmentProgram: Zero Normal" << std::endl;
+	    }
+
+	    //std::cout << "phong fragment program::light_position = [" << state.light_position() << "]" << std::endl;
+	    vector3_type L = state.light_position() - in_position;
+	    if (!Zero(L))
+		L /= Norm(L);
+	    else {
+		std::cout << "MyPhongFragmentProgram: Zero Light Vector" << std::endl;
+	    }
+	    //std::cout << "phong fragment program::light_vector = [" << L << "]" << std::endl;
+
+	    vector3_type V = state.eye_position() - in_position;
+	    if (!Zero(V))
 		V /= Norm(V);
+	    else {
+		std::cout << "MyPhongFragmentProgram: Zero View Vector" << std::endl;
+	    }
+	    //std::cout << "V = [" << V << "]" << std::endl;
 
-		vector3_type A = state.ambient_intensity() * state.ambient_color() * 0.5;
-		vector3_type D = state.diffuse_intensity() * state.diffuse_color() * Dot(N, L);
-		vector3_type S = state.specular_intensity() * state.specular_color() * pow(Dot(R, V), state.fall_off());
 
-		vector3_type light = A + D + S;
 
-	    out_color = vector3_type(Clamp(in_color[1] * light[1]),
-	    						 Clamp(in_color[2] * light[2]),
-	    						 Clamp(in_color[3] * light[3]));
+	    vector3_type Ambient_term;
+	    vector3_type Diffuse_term;
+	    vector3_type Specular_term;
+
+	    // The Ambient term should always be computed
+	    for (int i = 1; i <= 3; ++i) {
+		Ambient_term[i]  = state.I_a()[i] * state.ambient_intensity()  * state.ambient_color()[i];
+		Ambient_term[i]  = this->Clamp(Ambient_term[i]);
+	    }
+
+
+	    // Only compute the Diffuse and Specular terms of L, N, and V are on the same side of the surface.
+	    if ((Dot(L, N) > 0.0) && (Dot(V, N) > 0.0)) //{
+	    {
+		// Both L and V on the same side of the surface as N
+
+		vector3_type R = N * (Dot(N, L) * 2.0) - L;
+		if (Dot(R, N) < 0.0) {
+		    R = vector3_type(0.0, 0.0, 0.0); // was N but it might be wrong - just a try.
+		}
+		if (!Zero(R))
+		    R /= Norm(R);
+		else {
+		    std::cout << "MyPhongFragmentProgram: Zero Reflection Vector" << std::endl;
+		}
+		//std::cout << "R = [" << R << "]" << std::endl;
+
+
+		real_type    LdotN = Dot(L, N);
+		             LdotN = this->Clamp(LdotN);
+
+		real_type    RdotV = Dot(R, V);
+		//std::cout << "R * V == " << RdotV << ", Clamp(R * V) == " << Clamp(RdotV) << std::endl;
+	                     RdotV = this->Clamp(RdotV);
+
+	        //std::cout << "state.fall_off() == " << state.fall_off() << std::endl;
+		real_type    powRdotV = pow(RdotV, state.fall_off());
+		             powRdotV = this->Clamp(powRdotV);
+
+		//std::cout << "N == [" << N << "]" << std::endl;
+		//std::cout << "L == [" << L << "]" << std::endl;
+	        //std::cout << "R == [" << R << "]" << std::endl;
+	        //std::cout << "V == [" << V << "]" << std::endl;
+	        //std::cout << "L * N     == " << LdotN << std::endl;
+	        //std::cout << "R * V     == " << RdotV << std::endl;
+	        //std::cout << "(R * V)^n == " << powRdotV << std::endl;
+
+
+
+
+		for (int i = 1; i <= 3; ++i) {
+		    Diffuse_term[i]  = state.I_p()[i] * state.diffuse_intensity()  * state.diffuse_color()[i] * LdotN;
+		    Diffuse_term[i]  = this->Clamp(Diffuse_term[i]);
+
+		    Specular_term[i] = state.I_p()[i] * state.specular_intensity() * state.specular_color()[i] * powRdotV;
+		    Specular_term[i] = this->Clamp(Specular_term[i]);
+		}
+	    }
+	    //std::cout << "Ambient  == [" << Ambient_term  << "]" << std::endl;
+	    //std::cout << "Diffuse  == [" << Diffuse_term  << "]" << std::endl;
+	    //std::cout << "Specular == [" << Specular_term << "]" << std::endl;
+
+	    //out_color = Ambient_term;
+	    //out_color = Diffuse_term + Specular_term;
+	    //out_color = Specular_term;
+
+	    vector3_type color = Ambient_term + Diffuse_term + Specular_term;
+	    for (int i = 1; i <= 3; ++i) {
+		color[i] = this->Clamp(color[i]);
+	    }
+
+	    out_color = color;
 	}
 
 

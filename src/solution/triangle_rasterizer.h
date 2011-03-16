@@ -204,13 +204,13 @@ namespace graphics {
 
 	real_type depth() const     
 	{
-	  //	    if (!this->valid) {
-	  //                throw std::runtime_error("MyTriangleRasterizer::depth(): Invalid State/Not Initialized");
-	  //            }
+	    if (!this->valid) {
+                throw std::runtime_error("MyTriangleRasterizer::depth(): Invalid State/Not Initialized");
+            }
             //return this->z_current;
-	  //	    if (!this->depth_interpolator.more_values()) {
-	  //		throw std::runtime_error("MyTriangleRasterizer::depth(): Invalid depth_interpolator");
-	  //	    }
+	    if (!this->depth_interpolator.more_values()) {
+		throw std::runtime_error("MyTriangleRasterizer::depth(): Invalid depth_interpolator");
+	    }
 	    return this->depth_interpolator.value();
 	}
 
@@ -223,13 +223,13 @@ namespace graphics {
 
 	vector3_type position() const 
         {
-	  //	    if (!this->valid) {
-	  //                throw std::runtime_error("MyTriangleRasterizer::position(): Invalid State/Not Initialized");
-	  //            }
+	    if (!this->valid) {
+                throw std::runtime_error("MyTriangleRasterizer::position(): Invalid State/Not Initialized");
+            }
 	    //return vector3_type(this->x(), this->y(), this->depth());
-	  //	    if (!this->worldpoint_interpolator.more_values()) {
-	  //		throw std::runtime_error("MyEdgeRasterizer::position(): Invalid worldpoint_interpolator");
-	  //	    }
+	    if (!this->worldpoint_interpolator.more_values()) {
+		throw std::runtime_error("MyEdgeRasterizer::position(): Invalid worldpoint_interpolator");
+	    }
 	    return this->worldpoint_interpolator.value();
 	}
 
@@ -242,13 +242,13 @@ namespace graphics {
 
 	vector3_type const& normal() const     
 	{
-	  //	    if (!this->valid) {
-	  //                throw std::runtime_error("MyTriangleRasterizer::normal(): Invalid State/Not Iitialized");
-	  //            }
+	    if (!this->valid) {
+                throw std::runtime_error("MyTriangleRasterizer::normal(): Invalid State/Not Iitialized");
+            }
 	    //return this->Ncurrent;
-	  //	    if (!this->normal_interpolator.more_values()) {
-	  //		throw std::runtime_error("MyTriangleRasterizer::normal(): Invalid normal_interpolator");
-	  //	    }
+	    if (!this->normal_interpolator.more_values()) {
+		throw std::runtime_error("MyTriangleRasterizer::normal(): Invalid normal_interpolator");
+	    }
 	    return this->normal_interpolator.value();
 	}
 
@@ -261,18 +261,18 @@ namespace graphics {
 
 	vector3_type const& color() const 
 	{
-	  //	    if (!this->valid) {
-	  //                throw std::runtime_error("MyTriangleRasterizer::color(): Invalid State/Not Initialized");
-	  //            }
+	    if (!this->valid) {
+                throw std::runtime_error("MyTriangleRasterizer::color(): Invalid State/Not Initialized");
+            }
 
 	    vector3_type return_color;
 	    if (this->Debug) {
 		return this->color_current;
 	    }
 
-	    //	    if (!this->color_interpolator.more_values()) {
-	    //		throw std::runtime_error("MyEdgeRasterizer::color(): Invalid color_interpolator");
-	    //	    }
+	    if (!this->color_interpolator.more_values()) {
+		throw std::runtime_error("MyEdgeRasterizer::color(): Invalid color_interpolator");
+	    }
 	    return this->color_interpolator.value();
 	}
 
@@ -573,11 +573,11 @@ namespace graphics {
 	    vector3_type zero_vector(0, 0, 0);
 #endif
 	    if (Zero(z_component_of_the_cross_product)) {
-		/*std::cout << "triangle_rasterizer::degenerate():The triangle is degenerate" << std::endl;
+		std::cout << "triangle_rasterizer::degenerate():The triangle is degenerate" << std::endl;
 		std::cout << "    vertex[1] = [" << int_vertex1 << "]" << std::endl;
 		std::cout << "    vertex[2] = [" << int_vertex2 << "]" << std::endl;
 		std::cout << "    vertex[3] = [" << int_vertex3 << "]" << std::endl;
-		std::cout << "    This triangle will be ignored..."    << std::endl;*/
+		std::cout << "    This triangle will be ignored..."    << std::endl;
 
 		// Look here tomorrow: 26.03.2010-05:05
 		// Try to use render_pipeline.draw_debugline(...) to mark it in red.
