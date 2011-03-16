@@ -13,6 +13,7 @@ CMakeFiles/framework.dir/src/main.o: src/graphics/graphics_zbuffer.h
 CMakeFiles/framework.dir/src/main.o: src/main.cpp
 CMakeFiles/framework.dir/src/main.o: src/solution/boundingbox.h
 CMakeFiles/framework.dir/src/main.o: src/solution/camera.h
+CMakeFiles/framework.dir/src/main.o: src/solution/dini.h
 CMakeFiles/framework.dir/src/main.o: src/solution/fragment_program.h
 CMakeFiles/framework.dir/src/main.o: src/solution/icosahedron.h
 CMakeFiles/framework.dir/src/main.o: src/solution/kleinbottle.h

@@ -163,6 +163,8 @@ solution/readbezierpatches.h
 /Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/readbezierpatches.h
 solution/kleinbottle.h
 /Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/kleinbottle.h
+solution/dini.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/dini.h
 solution/phongsurface.h
 /Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/phongsurface.h
 solution/icosahedron.h
@@ -177,6 +179,12 @@ solution/math_types.h
 /Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/camera.h
 graphics/graphics.h
 /Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/graphics/graphics.h
+solution/transformations.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
+
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/dini.h
+solution/math_types.h
+/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/math_types.h
 solution/transformations.h
 /Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/solution/solution/transformations.h
 

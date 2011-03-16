@@ -1988,6 +1988,183 @@ void DrawKleinBottle()
     render_pipeline.state().inv_model() = Identity();
 }
 
+/*******************************************************************\
+*                                                                   *
+*                   T h e   D i n i   S h a p e                     *
+*                                                                   *
+\*******************************************************************/
+
+#include "solution/dini.h"
+
+DiniSurface Dini;
+
+/*******************************************************************\
+*                                                                   *
+*                        D r a w D i n i ( )                        *
+*                                                                   *
+\*******************************************************************/
+
+void DrawDini() {
+
+/*******************************************************************\
+*                                                                   *
+*                V i e w i n g   P a r a m e t e r s                *
+*                                                                   *
+\*******************************************************************/
+
+	MyMathTypes::vector3_type VRP(5.0, 0.0, 6.0);
+	MyMathTypes::vector3_type VPN(cos(30.0 * M_PI / 180.0), 0.0, sin(30.0 * M_PI / 180.0));
+	MyMathTypes::vector3_type VUP(0.0, 0.0, 1.0);
+	MyMathTypes::vector3_type PRP(0.0, 20.0, 50.0); // was 100
+
+	MyMathTypes::vector2_type lower_left(-10.0, -10.0);
+	MyMathTypes::vector2_type upper_right(10.0, 10.0);
+
+	MyMathTypes::real_type    F =   5.0;
+	MyMathTypes::real_type    B = -15.0;
+
+	camera.set_projection(VRP, VPN, VUP, PRP,
+			  lower_left, upper_right,
+			  F, B,
+			  winWidth, winHeight);
+
+
+/*******************************************************************\
+*                                                                   *
+*                      L i g h t   S o u r c e                      *
+*                                                                   *
+\*******************************************************************/
+
+	// Set up the Light source parameters in graphics_state
+	MyMathTypes::vector3_type I_a(0.5, 0.5, 0.5);
+	render_pipeline.state().I_a() = I_a;
+
+	// Set up the Light source parameters in graphics_state
+	MyMathTypes::vector3_type I_p(1.0, 1.0, 1.0);
+	MyMathTypes::vector3_type I_p_position(300.0, 300.0, -300.0);
+
+	render_pipeline.state().I_p() = I_p;
+	render_pipeline.state().light_position() = I_p_position;
+
+
+/*******************************************************************\
+*                                                                   *
+*               M a t e r i a l   P r o p e r t i e s               *
+*                                                                   *
+\*******************************************************************/
+
+	MyMathTypes::real_type    k_a = 0.5;
+	MyMathTypes::vector3_type O_a(0.0, 1.0, 0.0);
+
+	MyMathTypes::real_type    k_d = 0.75;
+	MyMathTypes::vector3_type O_d(0.0, 1.0, 0.0);
+
+	MyMathTypes::real_type    k_s = 0.9;
+	MyMathTypes::vector3_type O_s(1.0, 1.0, 1.0);
+
+	MyMathTypes::real_type    n     = 75.0; //20.0;
+	MyMathTypes::real_type    f_att = 1.0;   // Not used!
+
+	// Set up the Material parameters
+	render_pipeline.state().ambient_intensity()  = k_a;
+	render_pipeline.state().ambient_color()      = O_a;
+
+	render_pipeline.state().diffuse_intensity()  = k_d;
+	render_pipeline.state().diffuse_color()      = O_d;
+
+	render_pipeline.state().specular_intensity() = k_s;
+	render_pipeline.state().specular_color()     = O_s;
+
+	render_pipeline.state().fall_off() = n;
+
+
+/*******************************************************************\
+*                                                                   *
+*               I n i t i a l i z e   P i p e l i n e               *
+*                                                                   *
+\*******************************************************************/
+
+	render_pipeline.load_rasterizer(triangle_rasterizer);
+	render_pipeline.load_vertex_program(transform_vertex_program);
+	render_pipeline.load_fragment_program(phong_fragment_program);
+
+
+/*******************************************************************\
+*                                                                   *
+*                   D r a w   t h e   S u r f a c e                 *
+*                                                                   *
+\*******************************************************************/
+
+	MyMathTypes::real_type rotation_angle = 45.0 * M_PI /  180.0;
+	render_pipeline.state().model()     = Z_Rotate(rotation_angle);
+	render_pipeline.state().inv_model() = Inv_Z_Rotate(rotation_angle);
+
+	int N = 50; // Tesselation in the u-parameter
+	int M = N / 4; // Tesselation in the v-parameter
+
+	BoundingBox<MyMathTypes> boundingbox; // in diretory "solution"
+
+	MyMathTypes::real_type u_start = 0.0;
+	MyMathTypes::real_type delta_u = (6.0 * M_PI) / static_cast<MyMathTypes::real_type> (N);
+	MyMathTypes::real_type u_stop = 6.0 * M_PI;
+
+	MyMathTypes::real_type v_start = 0.001;
+	MyMathTypes::real_type delta_v = 2 / static_cast<MyMathTypes::real_type> (M);
+	MyMathTypes::real_type v_stop = 2;
+
+	MyMathTypes::vector3_type v_11; // (u, v)
+	MyMathTypes::vector3_type n_11;
+
+	MyMathTypes::vector3_type v_12; // (u + delta_u, v)
+	MyMathTypes::vector3_type n_12;
+
+	MyMathTypes::vector3_type v_21; // (u, v + delta_v)
+	MyMathTypes::vector3_type n_21;
+
+	MyMathTypes::vector3_type v_22; // (u + delta_u, v + delta_v)
+	MyMathTypes::vector3_type n_22;
+
+	MyMathTypes::real_type a = 1.0;
+	MyMathTypes::real_type b = 0.2;
+
+	for (MyMathTypes::real_type u = u_start; u < u_stop; u += delta_u) {
+		for (MyMathTypes::real_type v = v_start; v < v_stop; v += delta_v) {
+			//std::cout << std::endl;
+			//std::cout << "v_11 = f(" << u << ", " << v << "]"  << std::endl;
+			v_11 = Dini.Dini(u, v, a, b);
+			boundingbox.Submit(v_11);
+			n_11 = Dini.DiniNormal(u, v, a, b);
+
+			//std::cout << "v_12 = f(" << u + delta_u << ", " << v << "]" << std::endl;
+			v_12 = Dini.Dini(u + delta_u, v, a ,b);
+			boundingbox.Submit(v_12);
+			n_12 = Dini.DiniNormal(u + delta_u, v, a, b);
+
+			//std::cout << "v_21 = f(" << u << ", " << v + delta_v << "]" << std::endl;
+			v_21 = Dini.Dini(u, v + delta_v, a, b);
+			boundingbox.Submit(v_21);
+			n_21 = Dini.DiniNormal(u, v + delta_v, a, b);
+
+			//std::cout << "v_22 = f(" << u + delta_u << ", " << v + delta_v << "]" << std::endl;
+			v_22 = Dini.Dini(u + delta_u, v + delta_v, a, b);
+			boundingbox.Submit(v_22);
+			n_22 = Dini.DiniNormal(u + delta_u, v + delta_v, a, b);
+
+			// Draw the triangles
+			render_pipeline.load_rasterizer(triangle_rasterizer);
+			render_pipeline.load_fragment_program(phong_fragment_program);
+
+			render_pipeline.draw_triangle(v_11, n_11, cwhite, v_12, n_12,
+					cwhite, v_22, n_22, cwhite);
+			render_pipeline.draw_triangle(v_11, n_11, cwhite, v_22, n_22,
+					cwhite, v_21, n_21, cwhite);
+		}
+	}
+
+	render_pipeline.state().model()     = Identity();
+	render_pipeline.state().inv_model() = Identity();
+}
+
 
 /*******************************************************************\
 *                                                                   *
@@ -2279,12 +2456,12 @@ void SubdivideBezierPatch(MyMathTypes::bezier_patch const& Patch, int SubdivLeve
 	    render_pipeline.load_vertex_program(transform_vertex_program);
 	    render_pipeline.load_fragment_program(phong_fragment_program);
 
-	    render_pipeline.draw_triangle(Patch[1][1], n_11, cred,
-					  Patch[4][1], n_41, cred,
-					  Patch[1][4], n_14, cred);
-	    render_pipeline.draw_triangle(Patch[4][1], n_41, cred,
-					  Patch[4][4], n_44, cred,
-					  Patch[1][4], n_14, cred); 
+	    render_pipeline.draw_triangle(Patch[1][1], n_11, cwhite,
+					  Patch[4][1], n_41, cwhite,
+					  Patch[1][4], n_14, cwhite);
+	    render_pipeline.draw_triangle(Patch[4][1], n_41, cwhite,
+					  Patch[4][4], n_44, cwhite,
+					  Patch[1][4], n_14, cwhite);
 
 
 	}
@@ -3175,7 +3352,7 @@ void DrawIcosahedron()
 	render_pipeline.load_vertex_program(transform_vertex_program);
 	render_pipeline.load_fragment_program(phong_fragment_program);
 
-	render_pipeline.draw_triangle(v1, N, cred, v2, N, cred, v3, N, cred); 
+	render_pipeline.draw_triangle(v1, N, cwhite, v2, N, cwhite, v3, N, cwhite);
 
 	// Draw the Normal
 	// Just one normal per triangle.
@@ -3215,7 +3392,7 @@ void DrawIcosahedron()
 	render_pipeline.load_vertex_program(transform_vertex_program);
 	render_pipeline.load_fragment_program(phong_fragment_program);
 
-	render_pipeline.draw_triangle(v1, N1, cred, v2, N2, cred, v3, N3, cred); 
+	render_pipeline.draw_triangle(v1, N1, cwhite, v2, N2, cwhite, v3, N3, cwhite);
 
 	// Draw the Normal
 	// One normal per vertex.
@@ -3262,7 +3439,7 @@ void SubDivideTriangle(Icosahedron::triangle const& T, int t_subdiv)
 	render_pipeline.load_vertex_program(transform_vertex_program);
 	render_pipeline.load_fragment_program(phong_fragment_program);
 
-	render_pipeline.draw_triangle(T[0], N_0, cred, T[1], N_1, cred, T[2], N_2, cred);
+	render_pipeline.draw_triangle(T[0], N_0, cwhite, T[1], N_1, cwhite, T[2], N_2, cwhite);
     }
     else {
 	render_pipeline.state().model()     = Identity();
@@ -3769,6 +3946,11 @@ void keyboard(unsigned char Key, int Xmouse, int Ymouse)
 	figure = 'E';
 	glutPostRedisplay();
 	break;
+    case 'j':
+    // draw the Dini surface
+    figure = 'j';
+    glutPostRedisplay();
+    break;
     default:
 	std::cout << "No action defined for key '" << Key << "'" << std::endl << std::flush;
 	std::cout << std::endl << std::flush;
@@ -4116,7 +4298,17 @@ void display()
     if (figure == 'E') {
 	DrawSubDividedIcosahedron();
     }
+
+/*******************************************************************\
+*                                                                   *
+*             D r a w    D i n i ' s   S u r f a c e                *
+*                                                                   *
+\*******************************************************************/
     
+    if (figure == 'j'){
+	DrawDini();
+    }
+
 /*******************************************************************\
 *                                                                   *
 *  F i n i s h   u p   t h e   d i s p l a y ( )   f u n c t i o n  *
@@ -4203,6 +4395,7 @@ void RefreshMenu()
     glutChangeToMenuEntry(32, "   Draw Pain", 32);
     glutChangeToMenuEntry(33, "   Draw Icosahedron", 33);
     glutChangeToMenuEntry(34, "   SubDivide Icosahedron", 34);
+    glutChangeToMenuEntry(35, "   Draw Dini", 35);
 }
 
 
@@ -4426,6 +4619,12 @@ void SelectMenuItem(int value)
 	figure = 'E';
 	glutPostRedisplay();
 	break;
+    case 35:
+    RefreshMenu();
+    glutChangeToMenuEntry(35, "-> Draw Dini", 35);
+    figure = 'j';
+    glutPostRedisplay();
+    break;
     }
 }
 
@@ -4475,6 +4674,7 @@ void CreateMenu()
     glutAddMenuEntry("   Draw Pain", 32);
     glutAddMenuEntry("   Draw Icosahedron", 33);
     glutAddMenuEntry("   SubDivide Icosahedron", 34);
+    glutAddMenuEntry("   Draw Dini", 35);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 

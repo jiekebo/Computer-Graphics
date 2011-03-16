@@ -65,7 +65,7 @@ template<typename math_types>
 		vector3_type N;
 
 		if (Norm(in_normal) <= 0) {
-			N = vector3_type(0,0,0);
+			N = vector3_type(0,0,1);
 		} else {
 			N = in_normal / Norm(in_normal);
 		}
