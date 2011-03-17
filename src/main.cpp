@@ -2342,7 +2342,11 @@ void DrawPhongSurface()
 	    // Draw the triangles
 	    render_pipeline.load_rasterizer(triangle_rasterizer);
 	    render_pipeline.load_vertex_program(transform_vertex_program);
-	    render_pipeline.load_fragment_program(phong_fragment_program);
+	    if(figure == 'X')
+	    	render_pipeline.load_fragment_program(identity_fragment_program);
+
+	    if(figure == 'x')
+			render_pipeline.load_fragment_program(phong_fragment_program);
 
 	    
 	    render_pipeline.draw_triangle(v_11, n_11, cwhite,
@@ -3961,6 +3965,11 @@ void keyboard(unsigned char Key, int Xmouse, int Ymouse)
 	figure = 'x';
 	glutPostRedisplay();
 	break;
+    case 'X':
+	// draw the Phong Surface
+	figure = 'X';
+	glutPostRedisplay();
+	break;
     case 'n':
 	// draw UTAH Teapot
 	figure = 'n';
@@ -4307,6 +4316,16 @@ void display()
     if (figure == 'x') {
 	DrawPhongSurface();
     }
+
+/*******************************************************************\
+*                                                                   *
+*                D r a w P h o n g S u r f a c e ( )                *
+*                                                                   *
+\*******************************************************************/
+
+	if (figure == 'X') {
+	DrawPhongSurface();
+	}
 
 /*******************************************************************\
 *                                                                   *
