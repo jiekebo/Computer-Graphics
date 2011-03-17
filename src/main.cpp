@@ -166,7 +166,7 @@ int winHeight = 768;
 *                                                                   *
 \*******************************************************************/
 
-typedef enum { ControlGrid = 1, ShadedPatch = 2 } DrawStyle;
+typedef enum { ControlGrid = 1, ShadedPatch = 2, GouraudPatch = 3 } DrawStyle;
 
 
 /*******************************************************************\
@@ -2484,6 +2484,23 @@ void SubdivideBezierPatch(MyMathTypes::bezier_patch const& Patch, int SubdivLeve
 	    }
 	}
 
+	if (VisualizationStyle == GouraudPatch) {
+	    render_pipeline.load_rasterizer(triangle_rasterizer);
+	    render_pipeline.load_vertex_program(transform_vertex_program);
+	    //render_pipeline.load_fragment_program(identity_fragment_program);
+
+	    render_pipeline.draw_triangle(Patch[1][1], n_11, cwhite,
+					  Patch[4][1], n_41, cwhite,
+					  Patch[1][4], n_14, cwhite);
+	    render_pipeline.draw_triangle(Patch[4][1], n_41, cwhite,
+					  Patch[4][4], n_44, cwhite,
+					  Patch[1][4], n_14, cwhite);
+
+
+	}
+
+
+
 #if BEZIERNORMALS
 	    // Draw the normals
 	    render_pipeline.load_rasterizer(line_rasterizer);
@@ -2692,10 +2709,18 @@ void DrawUTAHTeapot()
 
     int  SubdivLevel;
 
-    SubdivLevel = 3;
+    SubdivLevel = 1;
     render_pipeline.load_rasterizer(triangle_rasterizer);
-    render_pipeline.load_fragment_program(phong_fragment_program);
-    DrawBezierPatches(BezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+
+    if(figure == 'N'){
+    	render_pipeline.load_fragment_program(identity_fragment_program);
+		DrawBezierPatches(BezierPatches, SubdivLevel, InvertNormals, GouraudPatch);
+    }
+
+    if(figure == 'n'){
+    	render_pipeline.load_fragment_program(phong_fragment_program);
+		DrawBezierPatches(BezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+    }
 
     render_pipeline.state().model()     = Identity();
     render_pipeline.state().inv_model() = Identity();
@@ -2839,8 +2864,16 @@ void DrawRocket()
 
     SubdivLevel = 3;
     render_pipeline.load_rasterizer(triangle_rasterizer);
-    render_pipeline.load_fragment_program(phong_fragment_program);
-    DrawBezierPatches(TransformedBezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+
+    if(figure == 'Z'){
+    	render_pipeline.load_fragment_program(identity_fragment_program);
+		DrawBezierPatches(TransformedBezierPatches, SubdivLevel, InvertNormals, GouraudPatch);
+    }
+
+    if(figure == 'z'){
+    	render_pipeline.load_fragment_program(phong_fragment_program);
+		DrawBezierPatches(TransformedBezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+    }
 
     render_pipeline.state().model()     = Identity();
     render_pipeline.state().inv_model() = Identity();
@@ -2984,8 +3017,16 @@ void DrawSailboat()
     int  SubdivLevel   = 2;
     render_pipeline.load_rasterizer(triangle_rasterizer);
     render_pipeline.load_vertex_program(transform_vertex_program);
-    render_pipeline.load_fragment_program(phong_fragment_program);
-    DrawBezierPatches(TransformedBezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+
+    if(figure == 'V'){
+    	render_pipeline.load_fragment_program(identity_fragment_program);
+		DrawBezierPatches(TransformedBezierPatches, SubdivLevel, InvertNormals, GouraudPatch);
+    }
+
+    if(figure == 'v'){
+    	render_pipeline.load_fragment_program(phong_fragment_program);
+		DrawBezierPatches(TransformedBezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+    }
 
     render_pipeline.state().model()     = Identity();
     render_pipeline.state().inv_model() = Identity();
@@ -3117,8 +3158,16 @@ void DrawPain()
 
     SubdivLevel = 5;
     render_pipeline.load_rasterizer(triangle_rasterizer);
-    render_pipeline.load_fragment_program(phong_fragment_program);
-    DrawBezierPatches(BezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+
+    if(figure == 'B'){
+    	render_pipeline.load_fragment_program(identity_fragment_program);
+		DrawBezierPatches(BezierPatches, SubdivLevel, InvertNormals, GouraudPatch);
+    }
+
+    if(figure == 'b'){
+    	render_pipeline.load_fragment_program(phong_fragment_program);
+		DrawBezierPatches(BezierPatches, SubdivLevel, InvertNormals, ShadedPatch);
+    }
 
     render_pipeline.state().model()     = Identity();
     render_pipeline.state().inv_model() = Identity();
@@ -3917,9 +3966,19 @@ void keyboard(unsigned char Key, int Xmouse, int Ymouse)
 	figure = 'n';
 	glutPostRedisplay();
 	break;
+    case 'N':
+	// draw UTAH Teapot
+	figure = 'N';
+	glutPostRedisplay();
+	break;
     case 'z':
 	// draw Rocket
 	figure = 'z';
+	glutPostRedisplay();
+	break;
+    case 'Z':
+	// draw Rocket
+	figure = 'Z';
 	glutPostRedisplay();
 	break;
     case 'v':
@@ -3927,9 +3986,19 @@ void keyboard(unsigned char Key, int Xmouse, int Ymouse)
 	figure = 'v';
 	glutPostRedisplay();
 	break;
+    case 'V':
+	// draw Sailboat
+	figure = 'V';
+	glutPostRedisplay();
+	break;
     case 'b':
 	// draw Pain
 	figure = 'b';
+	glutPostRedisplay();
+	break;
+    case 'B':
+	// draw Pain
+	figure = 'B';
 	glutPostRedisplay();
 	break;
     case 'e':
@@ -4251,6 +4320,16 @@ void display()
 
 /*******************************************************************\
 *                                                                   *
+*                  D r a w U T A H T e a p o t ( )                  *
+*                                                                   *
+\*******************************************************************/
+
+	if (figure == 'N') {
+	DrawUTAHTeapot();
+	}
+
+/*******************************************************************\
+*                                                                   *
 *                      D r a w R o c k e t ( )                      *
 *                                                                   *
 \*******************************************************************/
@@ -4258,6 +4337,16 @@ void display()
     if (figure == 'z') {
 	DrawRocket();
     }
+
+/*******************************************************************\
+*                                                                   *
+*                      D r a w R o c k e t ( )  (G O U R A U D)     *
+*                                                                   *
+\*******************************************************************/
+
+	if (figure == 'Z') {
+	DrawRocket();
+	}
 
 /*******************************************************************\
 *                                                                   *
@@ -4271,6 +4360,16 @@ void display()
 
 /*******************************************************************\
 *                                                                   *
+*                    D r a w S a i l b o a t ( )                    *
+*                                                                   *
+\*******************************************************************/
+
+	if (figure == 'V') {
+	DrawSailboat();
+	}
+
+/*******************************************************************\
+*                                                                   *
 *                        D r a w P a i n ( )                        *
 *                                                                   *
 \*******************************************************************/
@@ -4278,6 +4377,16 @@ void display()
     if (figure == 'b') {
 	DrawPain();
     }
+
+/*******************************************************************\
+*                                                                   *
+*                        D r a w P a i n ( )                        *
+*                                                                   *
+\*******************************************************************/
+
+	if (figure == 'B') {
+	DrawPain();
+	}
 
 /*******************************************************************\
 *                                                                   *

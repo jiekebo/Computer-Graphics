@@ -35,7 +35,18 @@ namespace graphics {
 	    // >> TODO ADD YOUR OWN MAGIC HERE <<
 
 	    //std::cout << "fragment: [" << in_position << "]" << std::endl;
-	    out_color = in_color;
+		for (int i = 1; i <= 3; ++i) {
+			out_color[i] = this->Clamp(in_color[i]);
+		}
+	}
+
+	real_type Clamp(real_type const& value)
+	{
+		real_type result = value;
+		if (value < 0.0) result = 0.0;
+		if (value > 1.0) result = 1.0;
+
+		return result;
 	}
     };
 
