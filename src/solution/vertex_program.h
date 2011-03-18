@@ -106,10 +106,12 @@ namespace graphics {
 
 		//out_color = in_color;
 
+		int direction = Dot(state.z_eye_axis(), in_normal)<=0?-1:1;
+
 		// Compute the needed vectors: N, L, R, V - and the dot products
 		vector3_type N = in_normal;
 		if (!Zero(N))
-		N /= Norm(N);
+		N /= Norm(N) * direction;
 		else {
 		std::cout << "MyPhongFragmentProgram: Zero Normal" << std::endl;
 		}

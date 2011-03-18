@@ -79,10 +79,12 @@ template<typename math_types>
 
 	    //out_color = in_color;
 
+		int direction = Dot(state.z_eye_axis(), in_normal)<=0?-1:1;
+
 	    // Compute the needed vectors: N, L, R, V - and the dot products
 	    vector3_type N = in_normal;
 	    if (!Zero(N))
-		N /= Norm(N);
+		N /= Norm(N) * direction;
 	    else {
 		std::cout << "MyPhongFragmentProgram: Zero Normal" << std::endl;
 	    }
@@ -111,11 +113,11 @@ template<typename math_types>
 	    vector3_type Specular_term;
 
 	    // The Ambient term should always be computed
-	    for (int i = 1; i <= 3; ++i) {
-		Ambient_term[i]  = state.I_a()[i] * state.ambient_intensity()  * state.ambient_color()[i];
-		Ambient_term[i]  = this->Clamp(Ambient_term[i]);
-	    }
 
+		for (int i = 1; i <= 3; ++i) {
+			Ambient_term[i]  = state.I_a()[i] * state.ambient_intensity()  * state.ambient_color()[i];
+			Ambient_term[i]  = this->Clamp(Ambient_term[i]);
+		}
 
 	    // Only compute the Diffuse and Specular terms of L, N, and V are on the same side of the surface.
 	    if ((Dot(L, N) > 0.0) && (Dot(V, N) > 0.0)) //{
@@ -132,7 +134,6 @@ template<typename math_types>
 		    std::cout << "MyPhongFragmentProgram: Zero Reflection Vector" << std::endl;
 		}
 		//std::cout << "R = [" << R << "]" << std::endl;
-
 
 		real_type    LdotN = Dot(L, N);
 		             LdotN = this->Clamp(LdotN);

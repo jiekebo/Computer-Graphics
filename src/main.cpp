@@ -1607,9 +1607,8 @@ void DrawTheKleinBottom()
 	    n_22 = Klein.BottomNormal(u + delta_u, v + delta_v);
 
 	    // Draw the triangles
-	    render_pipeline.load_rasterizer(triangle_rasterizer);
-	    render_pipeline.load_fragment_program(phong_fragment_program);
-
+	    //render_pipeline.load_rasterizer(triangle_rasterizer);
+	    //render_pipeline.load_fragment_program(phong_fragment_program);
 	    
 	    render_pipeline.draw_triangle(v_11, n_11, cwhite,
 					  v_12, n_12, cwhite,
@@ -1663,8 +1662,8 @@ void DrawTheKleinHandle()
     MyMathTypes::vector3_type v_22;   // (u + delta_u, v + delta_v)
     MyMathTypes::vector3_type n_22;
 
-    render_pipeline.load_vertex_program(transform_vertex_program);
-    render_pipeline.load_fragment_program(phong_fragment_program);
+    //render_pipeline.load_vertex_program(transform_vertex_program);
+    //render_pipeline.load_fragment_program(phong_fragment_program);
 
     for (MyMathTypes::real_type u = u_start; u < u_stop; u += delta_u) {
 	for (MyMathTypes::real_type v = v_start; v < v_stop; v += delta_v) {
@@ -1690,8 +1689,8 @@ void DrawTheKleinHandle()
 	    n_22 = Klein.HandleNormal(u + delta_u, v + delta_v);
 
 	    // Draw the triangles
-	    render_pipeline.load_rasterizer(triangle_rasterizer);
-	    render_pipeline.load_fragment_program(phong_fragment_program);
+	    //render_pipeline.load_rasterizer(triangle_rasterizer);
+	    //render_pipeline.load_fragment_program(phong_fragment_program);
 	    
 	    render_pipeline.draw_triangle(v_11, n_11, cwhite,
 					  v_12, n_12, cwhite,
@@ -1769,8 +1768,8 @@ void DrawTheKleinTop()
 	    n_22 = Klein.TopNormal(u + delta_u, v + delta_v);
 
 	    // Draw the triangles
-	    render_pipeline.load_rasterizer(triangle_rasterizer);
-	    render_pipeline.load_fragment_program(phong_fragment_program);
+	    //render_pipeline.load_rasterizer(triangle_rasterizer);
+	    //render_pipeline.load_fragment_program(phong_fragment_program);
 
 	    
 	    render_pipeline.draw_triangle(v_11, n_11, cwhite,
@@ -1849,9 +1848,9 @@ void DrawTheKleinMiddle()
 	    n_22 = Klein.MiddleNormal(u + delta_u, v + delta_v);
 
 	    // Draw the triangles
-	    render_pipeline.load_rasterizer(triangle_rasterizer);
-	    render_pipeline.load_vertex_program(transform_vertex_program);
-	    render_pipeline.load_fragment_program(phong_fragment_program);
+	    //render_pipeline.load_rasterizer(triangle_rasterizer);
+	    //render_pipeline.load_vertex_program(transform_vertex_program);
+	    //render_pipeline.load_fragment_program(phong_fragment_program);
 
 	    
 	    render_pipeline.draw_triangle(v_11, n_11, cwhite,
@@ -1963,7 +1962,10 @@ void DrawKleinBottle()
 
     render_pipeline.load_rasterizer(triangle_rasterizer);
     render_pipeline.load_vertex_program(transform_vertex_program);
-    render_pipeline.load_fragment_program(phong_fragment_program);
+    if(figure == 'M')
+    	render_pipeline.load_fragment_program(identity_fragment_program);
+    if(figure == 'm' || figure == 'k')
+    	render_pipeline.load_fragment_program(phong_fragment_program);
 
 
 /*******************************************************************\
@@ -2124,8 +2126,8 @@ void DrawDini() {
 	MyMathTypes::vector3_type v_22; // (u + delta_u, v + delta_v)
 	MyMathTypes::vector3_type n_22;
 
-	MyMathTypes::real_type a = 1.0;
-	MyMathTypes::real_type b = 0.2;
+	MyMathTypes::real_type a = 2.0;
+	MyMathTypes::real_type b = 0.6;
 
 	for (MyMathTypes::real_type u = u_start; u < u_stop; u += delta_u) {
 		for (MyMathTypes::real_type v = v_start; v < v_stop; v += delta_v) {
@@ -2713,7 +2715,7 @@ void DrawUTAHTeapot()
 
     int  SubdivLevel;
 
-    SubdivLevel = 1;
+    SubdivLevel = 3;
     render_pipeline.load_rasterizer(triangle_rasterizer);
 
     if(figure == 'N'){
@@ -3960,6 +3962,11 @@ void keyboard(unsigned char Key, int Xmouse, int Ymouse)
 	figure = 'm';
 	glutPostRedisplay();
 	break;
+    case 'M':
+	// draw Klein Bottle interior
+	figure = 'M';
+	glutPostRedisplay();
+	break;
     case 'x':
 	// draw the Phong Surface
 	figure = 'x';
@@ -4306,6 +4313,16 @@ void display()
     if (figure == 'm') {
 	DrawKleinBottle();
     }
+
+/*******************************************************************\
+*                                                                   *
+*         D r a w K l e i n B o t t l e I n t e r i o r ( )         *
+*                                                                   *
+\*******************************************************************/
+
+	if (figure == 'M') {
+	DrawKleinBottle();
+	}
 
 /*******************************************************************\
 *                                                                   *
