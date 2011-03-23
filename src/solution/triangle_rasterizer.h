@@ -496,7 +496,9 @@ namespace graphics {
 	    this->y_current = this->y_start;
 	    this->z_current = this->z_start;
 
-	    this->x_stop    = this->rightedge.x() - 1;
+	    // TODO: write about this in report
+	    //this->x_stop    = this->rightedge.x() - 1;
+	    this->x_stop    = this->rightedge.x();
 	    this->y_stop    = static_cast<int>(round(this->org_vertex[this->upper_left][2]));
 	    this->z_stop    = this->rightedge.depth();
 
