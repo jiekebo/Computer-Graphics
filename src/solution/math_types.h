@@ -241,6 +241,18 @@ namespace graphics {
 	return result;
     }
 
+    MyMathTypes::vector3_type operator*(MyMathTypes::bezier_row const& row,
+    				MyMathTypes::vector4_type const& column)
+    {
+		MyMathTypes::vector3_type result(0, 0, 0);
+
+		for (int i = 1; i <= 4; i++) {
+			result += row[i] * column[i];
+		}
+
+		return result;
+    }
+
 }// end namespace graphics
 
 // MATH_TYPES_H

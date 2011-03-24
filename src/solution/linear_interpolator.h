@@ -149,8 +149,8 @@ namespace graphics {
 	    // This hack did not fix it, just for a try!
 	    if (this->Delta_t == 0) {
 		//std::cout << "LinearInterpolator::init(...): Delta_t == 0" << std::endl;
-		this->Delta_v = value_type();
-		this->valid = false;
+	    this->Delta_v = Vstart;   // was: value_type();
+	    this->valid = true;      //  was: false;
 	    }
 	    else {
 		this->Delta_v =

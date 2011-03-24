@@ -2088,7 +2088,10 @@ void DrawDini() {
 
 	render_pipeline.load_rasterizer(triangle_rasterizer);
 	render_pipeline.load_vertex_program(transform_vertex_program);
-	render_pipeline.load_fragment_program(phong_fragment_program);
+    if(figure == 'J')
+    	render_pipeline.load_fragment_program(identity_fragment_program);
+    if(figure == 'j')
+    	render_pipeline.load_fragment_program(phong_fragment_program);
 
 
 /*******************************************************************\
@@ -2127,7 +2130,7 @@ void DrawDini() {
 	MyMathTypes::vector3_type n_22;
 
 	MyMathTypes::real_type a = 2.0;
-	MyMathTypes::real_type b = 0.6;
+	MyMathTypes::real_type b = 0.4;
 
 	for (MyMathTypes::real_type u = u_start; u < u_stop; u += delta_u) {
 		for (MyMathTypes::real_type v = v_start; v < v_stop; v += delta_v) {
@@ -2153,9 +2156,6 @@ void DrawDini() {
 			n_22 = Dini.DiniNormal(u + delta_u, v + delta_v, a, b);
 
 			// Draw the triangles
-			render_pipeline.load_rasterizer(triangle_rasterizer);
-			render_pipeline.load_fragment_program(phong_fragment_program);
-
 			render_pipeline.draw_triangle(v_11, n_11, cwhite, v_12, n_12,
 					cwhite, v_22, n_22, cwhite);
 			render_pipeline.draw_triangle(v_11, n_11, cwhite, v_22, n_22,
@@ -2595,6 +2595,8 @@ void DrawBezierPatches(std::vector<MyMathTypes::bezier_patch> const& BezierPatch
     }
 }
 
+
+// TODO: Forward differences algorithm
 
 /*******************************************************************\
 *                                                                   *
@@ -4036,6 +4038,11 @@ void keyboard(unsigned char Key, int Xmouse, int Ymouse)
     figure = 'j';
     glutPostRedisplay();
     break;
+    case 'J':
+    // draw the Dini surface
+    figure = 'J';
+    glutPostRedisplay();
+    break;
     default:
 	std::cout << "No action defined for key '" << Key << "'" << std::endl << std::flush;
 	std::cout << std::endl << std::flush;
@@ -4453,6 +4460,16 @@ void display()
     if (figure == 'j'){
 	DrawDini();
     }
+
+/*******************************************************************\
+*                                                                   *
+*             D r a w    D i n i ' s   S u r f a c e                *
+*                                                                   *
+\*******************************************************************/
+
+	if (figure == 'J'){
+	DrawDini();
+	}
 
 /*******************************************************************\
 *                                                                   *

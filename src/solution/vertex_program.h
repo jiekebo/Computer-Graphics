@@ -263,13 +263,13 @@ namespace graphics {
 	}
 
 	real_type Clamp(real_type const& value)
-		{
-		    real_type result = value;
-		    if (value < 0.0) result = 0.0;
-		    if (value > 1.0) result = 1.0;
+	{
+		real_type result = value;
+		if (value < 0.0) result = 0.0;
+		if (value > 1.0) result = 1.0;
 
-		    return result;
-		}
+		return result;
+	}
     };
 
 }// end namespace graphics
