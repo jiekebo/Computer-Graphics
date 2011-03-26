@@ -177,6 +177,14 @@ typedef enum { ControlGrid = 1, ShadedPatch = 2, GouraudPatch = 3 } DrawStyle;
 
 using namespace graphics;
 
+#define ORIGINALMENU         0
+
+#if (ORIGINALMENU == 0)
+typedef enum { cmSubdivision = 1, cmForwardDifferencing = 2 } CurveModels;
+int                    forward_diff_steps = 200;
+CurveModels            cur_curve_model    = cmForwardDifferencing;
+#endif
+
 MyCamera<MyMathTypes>                  camera;
 RenderPipeline<MyMathTypes>            render_pipeline;
 MyIdentityVertexProgram<MyMathTypes>   identity_vertex_program;
@@ -2565,6 +2573,88 @@ void SubdivideBezierPatch(MyMathTypes::bezier_patch const& Patch, int SubdivLeve
     }
 }
 
+/*******************************************************************\
+ *                                                                   *
+ *             F o w a r d D i f f B e z i e r P a t c h             *
+ *                                                                   *
+\*******************************************************************/
+
+void FowardDiffBezierPatch(MyMathTypes::bezier_patch const& Patch, int step_count,
+        bool InvertNormals, DrawStyle VisualizationStyle)
+{
+    MyMathTypes::matrix4x4_type G;
+//    G[1][1] = Patch[1][1];
+
+    MyMathTypes::matrix4x4_type M;
+    MyMathTypes::matrix4x4_type C = M.T() * G * M;  // = MT * G * M
+
+    // @@@@
+}
+
+void FWDBezierPatch(){
+    int N = 30;
+    MyMathTypes::real_type    delta_s   = 1.0 / static_cast<MyMathTypes::real_type>(N);
+    MyMathTypes::real_type    delta_s_2 = delta_s * delta_s;
+    MyMathTypes::real_type    delta_s_3 = delta_s_2 * delta_s;
+
+	MyMathTypes::real_type    delta_t   = 1.0 / static_cast<MyMathTypes::real_type>(N);
+	MyMathTypes::real_type    delta_t_2 = delta_t * delta_t;
+	MyMathTypes::real_type    delta_t_3 = delta_t_2 * delta_t;
+
+    // Now for the real curve
+    MyMathTypes::vector3_type a;
+    a = 0;
+
+    MyMathTypes::vector3_type b;
+    b = 0;
+
+    MyMathTypes::vector3_type c;
+    c = 0;
+
+    MyMathTypes::vector3_type d;
+    d = 0;
+
+    MyMathTypes::matrixfwd_type FWDmatrix;
+    FWDmatrix[1][1] = 0;
+    FWDmatrix[1][2] = 0;
+    FWDmatrix[1][3] = 0;
+    FWDmatrix[1][4] = 0;
+
+    FWDmatrix[2][1] = 0;
+    FWDmatrix[2][2] = 0;
+    FWDmatrix[2][3] = 0;
+    FWDmatrix[2][4] = 0;
+
+    FWDmatrix[3][1] = 0;
+    FWDmatrix[3][2] = 0;
+    FWDmatrix[3][3] = 0;
+    FWDmatrix[3][4] = 0;
+
+    FWDmatrix[4][1] = 0;
+    FWDmatrix[4][2] = 0;
+    FWDmatrix[4][3] = 0;
+    FWDmatrix[4][4] = 0;
+
+    // save the old patch for both rows and columns
+
+    // add the rows
+    MyMathTypes::matrixfwd_type RowMatrix;
+    int i;
+    int j;
+    for(i = 0; i < 4; i++){
+    	for(j = 0; j <= 4; j++){
+    		RowMatrix[i][j] = FWDmatrix[i+1][j];
+    	}
+    }
+
+    // add the columns
+    MyMathTypes::matrixfwd_type ColumnMatrix;
+    for(i = 0; i <= 4; i++){
+    	for(j = 0; j < 4; j++){
+    		ColumnMatrix[i][j] = FWDmatrix[i][j+1];
+    	}
+    }
+}
 
 /*******************************************************************\
 *                                                                   *
@@ -2572,7 +2662,7 @@ void SubdivideBezierPatch(MyMathTypes::bezier_patch const& Patch, int SubdivLeve
 *                                                                   *
 \*******************************************************************/
 
-void DrawBezierPatches(std::vector<MyMathTypes::bezier_patch> const& BezierPatches, int SubdivLevel, 
+void DrawBezierPatches(std::vector<MyMathTypes::bezier_patch> const& BezierPatches, int SubdivLevel,
 		       std::vector<bool> const& InvertNormals, DrawStyle VisualizationStyle)
 {
     BoundingBox<MyMathTypes> BB;
@@ -2589,14 +2679,21 @@ void DrawBezierPatches(std::vector<MyMathTypes::bezier_patch> const& BezierPatch
 		BB.Submit(Patch[i][j]);
 	    }
 	}
-	SubdivideBezierPatch(Patch, SubdivLevel, InvertNormals[p], VisualizationStyle);
-
+#if ORIGINALMENU
+        SubdivideBezierPatch(Patch, SubdivLevel, InvertNormals[p], VisualizationStyle);
+#else
+        switch (cur_curve_model) {
+		case cmSubdivision:
+			SubdivideBezierPatch(Patch, SubdivLevel, InvertNormals[p], VisualizationStyle);
+			break;
+		case cmForwardDifferencing:
+			FowardDiffBezierPatch(Patch, forward_diff_steps, InvertNormals[p], VisualizationStyle);
+			break;
+		}
+#endif
 	++p;
     }
 }
-
-
-// TODO: Forward differences algorithm
 
 /*******************************************************************\
 *                                                                   *

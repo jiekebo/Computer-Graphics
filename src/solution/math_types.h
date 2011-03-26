@@ -32,6 +32,8 @@ namespace graphics {
       typedef RowVector<vector3_type, 4>    bezier_row;
       typedef ColumnVector<vector3_type, 4> bezier_column;
       typedef Matrix<vector3_type, 4, 4>    bezier_patch;
+
+      typedef Matrix<vector3_type, 4, 4>	matrixfwd_type;
   };
 
 
