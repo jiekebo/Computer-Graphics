@@ -181,7 +181,7 @@ using namespace graphics;
 
 #if (ORIGINALMENU == 0)
 typedef enum { cmSubdivision = 1, cmForwardDifferencing = 2 } CurveModels;
-int                    forward_diff_steps = 200;
+int                    forward_diff_steps = 20;
 CurveModels            cur_curve_model    = cmForwardDifferencing;
 #endif
 
@@ -2582,77 +2582,130 @@ void SubdivideBezierPatch(MyMathTypes::bezier_patch const& Patch, int SubdivLeve
 void FowardDiffBezierPatch(MyMathTypes::bezier_patch const& Patch, int step_count,
         bool InvertNormals, DrawStyle VisualizationStyle)
 {
-    MyMathTypes::matrix4x4_type G;
-//    G[1][1] = Patch[1][1];
-
     MyMathTypes::matrix4x4_type M;
-    MyMathTypes::matrix4x4_type C = M.T() * G * M;  // = MT * G * M
+    M[1] = MyMathTypes::vector4row_type(-1.0,  3.0, -3.0, 1.0);
+    M[2] = MyMathTypes::vector4row_type( 3.0, -6.0,  3.0, 0.0);
+    M[3] = MyMathTypes::vector4row_type(-3.0,  3.0,  0.0, 0.0);
+    M[4] = MyMathTypes::vector4row_type( 1.0,  0.0,  0.0, 0.0);
 
-    // @@@@
-}
+    MyMathTypes::real_type step_len(1.0/step_count);
 
-void FWDBezierPatch(){
-    int N = 30;
-    MyMathTypes::real_type    delta_s   = 1.0 / static_cast<MyMathTypes::real_type>(N);
-    MyMathTypes::real_type    delta_s_2 = delta_s * delta_s;
-    MyMathTypes::real_type    delta_s_3 = delta_s_2 * delta_s;
+    MyMathTypes::matrix4x4_type E;
+    E[1] = MyMathTypes::vector4row_type(                0.0,                 0.0,      0.0, 1.0);
+    E[2] = MyMathTypes::vector4row_type(    pow(step_len,3),     pow(step_len,2), step_len, 0.0);
+    E[3] = MyMathTypes::vector4row_type(6 * pow(step_len,3), 2 * pow(step_len,2),      0.0, 0.0);
+    E[4] = MyMathTypes::vector4row_type(6 * pow(step_len,3),                 0.0,      0.0, 0.0);
 
-	MyMathTypes::real_type    delta_t   = 1.0 / static_cast<MyMathTypes::real_type>(N);
-	MyMathTypes::real_type    delta_t_2 = delta_t * delta_t;
-	MyMathTypes::real_type    delta_t_3 = delta_t_2 * delta_t;
+    MyMathTypes::bezier_patch DD = E * M * Patch * M.T() * E.T();
 
-    // Now for the real curve
-    MyMathTypes::vector3_type a;
-    a = 0;
+    bool first_row(true);
+    MyMathTypes::vector3_type    last_point_set[step_count];
+    MyMathTypes::vector3_type    cur_point_set[step_count];
+    MyMathTypes::vector3_type    cur_row[5];
 
-    MyMathTypes::vector3_type b;
-    b = 0;
+    for (int i = 1; i <= step_count; i++)
+    {
+        for (int k = 1; k <= 4; k++)
+            cur_row[k] = DD[1][k];
 
-    MyMathTypes::vector3_type c;
-    c = 0;
+        //cur_row = DD[1];
+        cur_point_set[0] = cur_row[1];
 
-    MyMathTypes::vector3_type d;
-    d = 0;
+        for (int j = 1; j < step_count; j++)
+        {
+            for (int k = 1; k <= 3; k++)
+                cur_row[k] += cur_row[k + 1];
 
-    MyMathTypes::matrixfwd_type FWDmatrix;
-    FWDmatrix[1][1] = 0;
-    FWDmatrix[1][2] = 0;
-    FWDmatrix[1][3] = 0;
-    FWDmatrix[1][4] = 0;
+            cur_point_set[j] = cur_row[1];
 
-    FWDmatrix[2][1] = 0;
-    FWDmatrix[2][2] = 0;
-    FWDmatrix[2][3] = 0;
-    FWDmatrix[2][4] = 0;
+            // If we are at the first row, then we don't have anything to draw yet.
+            if (!first_row)
+            {
+                // normal at the corner Patch[1][1]
+                MyMathTypes::vector3_type v_11_21 = cur_point_set[j-1] - last_point_set[j-1];
+                MyMathTypes::vector3_type v_11_12 = last_point_set[j] - last_point_set[j-1];
+                MyMathTypes::vector3_type n_11    = Cross(v_11_21, v_11_12);
 
-    FWDmatrix[3][1] = 0;
-    FWDmatrix[3][2] = 0;
-    FWDmatrix[3][3] = 0;
-    FWDmatrix[3][4] = 0;
+                if (InvertNormals) n_11 = - n_11;
+                if (!Zero(n_11))
+                    n_11 /= Norm(n_11);
 
-    FWDmatrix[4][1] = 0;
-    FWDmatrix[4][2] = 0;
-    FWDmatrix[4][3] = 0;
-    FWDmatrix[4][4] = 0;
+                // normal at the corner Patch[4][1]
+                MyMathTypes::vector3_type v_41_31 = last_point_set[j-1] - cur_point_set[j-1];
+                MyMathTypes::vector3_type v_41_42 = cur_point_set[j] - cur_point_set[j-1];
+                MyMathTypes::vector3_type n_41    = Cross(v_41_42, v_41_31);
 
-    // save the old patch for both rows and columns
+                if (InvertNormals) n_41 = - n_41;
+                if (!Zero(n_41))
+                    n_41 /= Norm(n_41);
 
-    // add the rows
-    MyMathTypes::matrixfwd_type RowMatrix;
-    int i;
-    int j;
-    for(i = 0; i < 4; i++){
-    	for(j = 0; j <= 4; j++){
-    		RowMatrix[i][j] = FWDmatrix[i+1][j];
-    	}
-    }
+                // normal at the corner Patch[4][4]
+                MyMathTypes::vector3_type v_44_34 = last_point_set[j] - cur_point_set[j];
+                MyMathTypes::vector3_type v_44_43 = cur_point_set[j-1] - cur_point_set[j];
+                MyMathTypes::vector3_type n_44    = Cross(v_44_34, v_44_43);
 
-    // add the columns
-    MyMathTypes::matrixfwd_type ColumnMatrix;
-    for(i = 0; i <= 4; i++){
-    	for(j = 0; j < 4; j++){
-    		ColumnMatrix[i][j] = FWDmatrix[i][j+1];
-    	}
+                if (InvertNormals) n_44 = - n_44;
+                if (!Zero(n_44))
+                    n_44 /= Norm(n_44);
+
+                // normal at the corner Patch[1][4]
+                MyMathTypes::vector3_type v_14_13 = last_point_set[j-1] - last_point_set[j];
+                MyMathTypes::vector3_type v_14_24 = cur_point_set[j] - last_point_set[j];
+                MyMathTypes::vector3_type n_14    = Cross(v_14_13, v_14_24);
+
+                if (InvertNormals) n_14 = - n_14;
+                if (!Zero(n_14))
+                    n_14 /= Norm(n_14);
+
+                if (VisualizationStyle == ShadedPatch)
+                {
+                    render_pipeline.load_rasterizer(triangle_rasterizer);
+                    render_pipeline.load_vertex_program(transform_vertex_program);
+                    render_pipeline.load_fragment_program(phong_fragment_program);
+
+                    render_pipeline.draw_triangle(last_point_set[j-1], n_11, cred,
+                            cur_point_set[j-1], n_41, cred,
+                            last_point_set[j], n_14, cred);
+                    render_pipeline.draw_triangle(cur_point_set[j-1], n_41, cred,
+                            cur_point_set[j], n_44, cred,
+                            last_point_set[j], n_14, cred);
+                }
+
+                if (VisualizationStyle == ControlGrid)
+                {
+                    // Draw the control grid
+                    render_pipeline.load_rasterizer(line_rasterizer);
+                    render_pipeline.load_vertex_program(transform_vertex_program);
+                    render_pipeline.load_fragment_program(identity_fragment_program);
+
+                    render_pipeline.draw_line(last_point_set[j-1], cwhite, last_point_set[j], cwhite);
+                    render_pipeline.draw_line(cur_point_set[j-1], cwhite, cur_point_set[j], cwhite);
+                    render_pipeline.draw_line(last_point_set[j-1], cwhite, cur_point_set[j-1], cwhite);
+                    render_pipeline.draw_line(last_point_set[j], cwhite, cur_point_set[j], cwhite);
+                }
+
+                if (VisualizationStyle == GouraudPatch)
+				{
+					render_pipeline.load_rasterizer(triangle_rasterizer);
+					render_pipeline.load_vertex_program(transform_vertex_program);
+					//render_pipeline.load_fragment_program(phong_fragment_program);
+
+					render_pipeline.draw_triangle(last_point_set[j-1], n_11, cred,
+							cur_point_set[j-1], n_41, cred,
+							last_point_set[j], n_14, cred);
+					render_pipeline.draw_triangle(cur_point_set[j-1], n_41, cred,
+							cur_point_set[j], n_44, cred,
+							last_point_set[j], n_14, cred);
+				}
+            }
+        }
+
+        for (int k = 1; k <= 3; k++)
+            DD[k] += DD[k + 1];
+
+        for (int k = 0; k <= step_count; k++)
+            last_point_set[k] = cur_point_set[k];
+        first_row = false;
     }
 }
 
@@ -2663,35 +2716,32 @@ void FWDBezierPatch(){
 \*******************************************************************/
 
 void DrawBezierPatches(std::vector<MyMathTypes::bezier_patch> const& BezierPatches, int SubdivLevel,
-		       std::vector<bool> const& InvertNormals, DrawStyle VisualizationStyle)
+        std::vector<bool> const& InvertNormals, DrawStyle VisualizationStyle)
 {
     BoundingBox<MyMathTypes> BB;
 
     // Record the BoundingBox
     int p = 0;
     for (std::vector<MyMathTypes::bezier_patch>::const_iterator Bpatch = BezierPatches.begin();
-	 Bpatch != BezierPatches.end(); ++Bpatch)
+            Bpatch != BezierPatches.end(); ++Bpatch)
     {
-	MyMathTypes::bezier_patch Patch = *Bpatch;
+        MyMathTypes::bezier_patch Patch = *Bpatch;
 
-	for (int i = 1; i <= 4; ++i) {
-	    for (int j =  1; j <= 4; ++j) {
-		BB.Submit(Patch[i][j]);
-	    }
-	}
-#if ORIGINALMENU
-        SubdivideBezierPatch(Patch, SubdivLevel, InvertNormals[p], VisualizationStyle);
-#else
-        switch (cur_curve_model) {
-		case cmSubdivision:
-			SubdivideBezierPatch(Patch, SubdivLevel, InvertNormals[p], VisualizationStyle);
-			break;
-		case cmForwardDifferencing:
-			FowardDiffBezierPatch(Patch, forward_diff_steps, InvertNormals[p], VisualizationStyle);
-			break;
-		}
-#endif
-	++p;
+        for (int i = 1; i <= 4; ++i) {
+            for (int j =  1; j <= 4; ++j) {
+                BB.Submit(Patch[i][j]);
+            }
+        }
+        switch (cur_curve_model)
+        {
+            case cmSubdivision:
+                SubdivideBezierPatch(Patch, SubdivLevel, InvertNormals[p], VisualizationStyle);
+                break;
+            case cmForwardDifferencing:
+                FowardDiffBezierPatch(Patch, forward_diff_steps, InvertNormals[p], VisualizationStyle);
+                break;
+        }
+        ++p;
     }
 }
 
