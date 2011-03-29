@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/main.cpp" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/CMakeFiles/framework.dir/src/main.o"
+  "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/src/main.cpp" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/CMakeFiles/framework.dir/src/main.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

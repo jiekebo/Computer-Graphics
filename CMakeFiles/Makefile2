@@ -47,10 +47,10 @@ RM = "/Applications/CMake 2.8-3.app/Contents/bin/cmake" -E remove -f
 CMAKE_EDIT_COMMAND = "/Applications/CMake 2.8-3.app/Contents/bin/ccmake"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project"
+CMAKE_SOURCE_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project"
+CMAKE_BINARY_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project"
 
 #=============================================================================
 # Target rules for target CMakeFiles/framework.dir
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Proj
 CMakeFiles/framework.dir/all:
 	$(MAKE) -f CMakeFiles/framework.dir/build.make CMakeFiles/framework.dir/depend
 	$(MAKE) -f CMakeFiles/framework.dir/build.make CMakeFiles/framework.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/CMakeFiles"  1
+	$(CMAKE_COMMAND) -E cmake_progress_report "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/CMakeFiles"  1
 	@echo "Built target framework"
 .PHONY : CMakeFiles/framework.dir/all
 
@@ -69,9 +69,9 @@ all: CMakeFiles/framework.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/framework.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/CMakeFiles" 1
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/CMakeFiles" 1
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/framework.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/CMakeFiles" 0
 .PHONY : CMakeFiles/framework.dir/rule
 
 # Convenience name for target.

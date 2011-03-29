@@ -181,7 +181,8 @@ using namespace graphics;
 
 #if (ORIGINALMENU == 0)
 typedef enum { cmSubdivision = 1, cmForwardDifferencing = 2 } CurveModels;
-int                    forward_diff_steps = 20;
+// for some reason cannot be even!? check limits in ForwardDiffBezierPatch...
+int                    forward_diff_steps = 3;
 CurveModels            cur_curve_model    = cmForwardDifferencing;
 #endif
 
@@ -2603,7 +2604,7 @@ void FowardDiffBezierPatch(MyMathTypes::bezier_patch const& Patch, int step_coun
     MyMathTypes::vector3_type    cur_point_set[step_count];
     MyMathTypes::vector3_type    cur_row[5];
 
-    for (int i = 1; i <= step_count; i++)
+    for (int i = 0; i <= step_count; i++)
     {
         for (int k = 1; k <= 4; k++)
             cur_row[k] = DD[1][k];
@@ -2611,9 +2612,9 @@ void FowardDiffBezierPatch(MyMathTypes::bezier_patch const& Patch, int step_coun
         //cur_row = DD[1];
         cur_point_set[0] = cur_row[1];
 
-        for (int j = 1; j < step_count; j++)
+        for (int j = 1; j <= step_count; j++)
         {
-            for (int k = 1; k <= 3; k++)
+            for (int k = 1; k <= 4; k++)
                 cur_row[k] += cur_row[k + 1];
 
             cur_point_set[j] = cur_row[1];

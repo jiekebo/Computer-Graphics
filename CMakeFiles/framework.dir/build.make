@@ -35,10 +35,10 @@ RM = "/Applications/CMake 2.8-3.app/Contents/bin/cmake" -E remove -f
 CMAKE_EDIT_COMMAND = "/Applications/CMake 2.8-3.app/Contents/bin/ccmake"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project"
+CMAKE_SOURCE_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project"
+CMAKE_BINARY_DIR = "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/framework.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/framework.dir/flags.make
 
 CMakeFiles/framework.dir/src/main.o: CMakeFiles/framework.dir/flags.make
 CMakeFiles/framework.dir/src/main.o: src/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/CMakeFiles" $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/CMakeFiles" $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/framework.dir/src/main.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/framework.dir/src/main.o -c "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/main.cpp"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/framework.dir/src/main.o -c "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/src/main.cpp"
 
 CMakeFiles/framework.dir/src/main.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/framework.dir/src/main.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/main.cpp" > CMakeFiles/framework.dir/src/main.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/src/main.cpp" > CMakeFiles/framework.dir/src/main.i
 
 CMakeFiles/framework.dir/src/main.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/framework.dir/src/main.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/src/main.cpp" -o CMakeFiles/framework.dir/src/main.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/src/main.cpp" -o CMakeFiles/framework.dir/src/main.s
 
 CMakeFiles/framework.dir/src/main.o.requires:
 .PHONY : CMakeFiles/framework.dir/src/main.o.requires
@@ -98,6 +98,6 @@ CMakeFiles/framework.dir/clean:
 .PHONY : CMakeFiles/framework.dir/clean
 
 CMakeFiles/framework.dir/depend:
-	cd "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/Project/CMakeFiles/framework.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project" "/Users/jiekebo/Documents/Uni/Datalogi/3 - Blok 3/Grafik/project/CMakeFiles/framework.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/framework.dir/depend
 
